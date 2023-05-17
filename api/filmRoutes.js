@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 //Uppdatera en film, ej klar
 router.put('/:id', async (req, res) => {
     try {
-        const updatedFilm = await Film.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const updatedFilm = await Film.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.status(200).json(updatedFilm);
     } catch (err) {
         res.status(400).json({ message: err.message });
