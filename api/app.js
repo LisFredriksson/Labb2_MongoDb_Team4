@@ -1,42 +1,26 @@
-const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
-const { port } = require('./config');
-const connectDB = require('./film_db');
-const Film = require('./models/film');
+const config = require('./config');
+const filmRoutes = require('./filmRoutes'); //importera mina routes
+
+const Film = require('./film_db');
 
 const app = express();
+app.use(express.json()); 
 
+
+app.use('/api/filmer', filmRoutes); //använd mina routes
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-connectDB();
+// Connection till mongodb
+mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.log('Failed to connect to MongoDB', err));
 
+// Starta Server
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server is running on port ${port}`));
 
-(async () => {
-    try {
-      const film = await Film.findOne();
-      if (film) {
-        console.log('Fetched movie:', film);
-      } else {
-        console.log('No movies found in the database');
-      }
-    } catch (error) {
-      console.log('Error fetching movie:', error);
-    }
-  })();
-
-  app.get('/films', async (req, res) => {
-    try {
-      const films = await Film.find();
-      res.json(films);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  });
-
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
-
-
-//"dev": "nodemon app.js",
