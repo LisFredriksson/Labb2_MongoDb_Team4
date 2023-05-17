@@ -1,11 +1,13 @@
-const mongoose = require('mongoose');
+const express = require('express');
+const app = express();
 const cors = require('cors');
+const mongoose = require('mongoose');
 const config = require('./config');
 const filmRoutes = require('./filmRoutes'); //importera mina routes
-const express = require('express')
+
 const Film = require('./film_db');
 
-const app = express();
+
 app.use(express.json());
 
 

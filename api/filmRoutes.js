@@ -1,5 +1,6 @@
 const express = require('express');
 const Film = require('./film_db');
+const db = require('./film_db2');
 const router = express.Router();
 const mongoose = require('mongoose');
 
@@ -33,17 +34,27 @@ router.post('/', async (req, res) => {
     }
 });
 
-//Uppdatera en film, ej klar
-router.put('/:id', async (req, res) => {
+//UPDATE
+router.put('/update', async (req, res) => {
+
+    console.log(req.body._id + req.body.titel)
+
+    let _id = await req.body._id
+    let titel = await req.body.titel
+
     try {
-        const updatedFilm = await Film.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.status(200).json(updatedFilm);
+        console.log(await db.update(_id, titel));
+        res.sendStatus(200);
+
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.sendStatus(500).json({ message: err.message });
     }
 });
 
 
 // Routes för delete ej klar
+
+
+
 
 module.exports = router;

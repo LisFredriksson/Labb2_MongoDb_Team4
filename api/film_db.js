@@ -1,4 +1,4 @@
-
+const config = require('./config');
 const mongoose = require('mongoose');
 
 
@@ -10,8 +10,5 @@ const FilmSchema = new mongoose.Schema({   //Schema
   betyg: Number,
   skådespelare: [String]
 });
-
-module.exports = mongoose.model('Film', FilmSchema);
-
 
 module.exports = mongoose.model('Film', FilmSchema);
