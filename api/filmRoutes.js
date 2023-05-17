@@ -51,10 +51,15 @@ router.put('/update', async (req, res) => {
     }
 });
 
-
-// Routes för delete ej klar
-
-
+router.delete('/delete', async (req, res) => {
+    let _id = await req.body._id
+    try {
+        console.log(await db.remove(_id));
+        res.sendStatus(200);
+    } catch (err) {
+        res.sendStatus(500).json({ message: err.message });
+    }
+});
 
 
 module.exports = router;
