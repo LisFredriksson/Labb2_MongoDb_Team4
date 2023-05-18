@@ -2,7 +2,6 @@ const express = require('express');
 const Film = require('./film_db');
 const db = require('./film_db2');
 const router = express.Router();
-const mongoose = require('mongoose');
 
 
 // Få alla filmer
@@ -58,6 +57,34 @@ router.delete('/delete', async (req, res) => {
         res.sendStatus(200);
     } catch (err) {
         res.sendStatus(500).json({ message: err.message });
+    }
+});
+// NY kod - Ger rating över 7
+router.get('/HR', async (req, res) => {
+    try {
+        const films = await Film.find({ betyg: { $gte: 7 } });
+        res.status(200).json(films);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+// NY kod - Ger rating under 6
+router.get('/LR', async (req, res) => {
+    try {
+        const films = await Film.find({ betyg: { $lt: 6 } });
+        res.status(200).json(films);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+// NY kod - Kan välja år
+router.get('/year/:year', async (req, res) => {
+    const year = parseInt(req.params.year);
+    try {
+        const films = await Film.find({ år: year });
+        res.status(200).json(films);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 });
 
