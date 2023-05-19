@@ -42,6 +42,17 @@ router.put('/:id', async (req, res) => {
         res.status(400).json({ message: err.message });
     }
 });
+// Få alla filmer med ett exakt betyg
+router.get('/betyg/:betyg', async (req, res) => {
+    try {
+        const betyg = Number(req.params.betyg);
+        const films = await Film.find({ betyg: betyg });
+        res.status(200).json(films);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 
 // Routes för delete ej klar
