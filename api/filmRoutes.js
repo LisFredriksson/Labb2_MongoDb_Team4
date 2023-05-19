@@ -1,6 +1,6 @@
 const express = require('express');
 const Film = require('./model');
-const db = require('./film_db2');
+const db = require('./film_db');
 const router = express.Router();
 
 
