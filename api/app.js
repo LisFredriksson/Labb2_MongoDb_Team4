@@ -4,9 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config');
 const filmRoutes = require('./filmRoutes'); //importera mina routes
-
 const Film = require('./model');
-
 
 app.use(express.json());
 

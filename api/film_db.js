@@ -11,9 +11,9 @@ const collection = db.collection('films')
 
 async function update(_id, titel) {
     await client.connect(); // Anslut
-    let result = await collection.updateOne({ _id: new ObjectId(_id) }, { $set: { titel: titel } }) // Lägg till ett dokument
+    let result = await collection.updateOne({ _id: new ObjectId(_id) }, { $set: { titel: titel } }) // Lägg till
     client.close(); // Stäng anslutning
-    return result; // Returnera result (innehåller eventuella felmeddelanden)
+    return result; // Returnera resultat
 }
 module.exports = {
     update,
